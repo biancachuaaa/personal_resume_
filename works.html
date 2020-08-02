@@ -1,0 +1,74 @@
+<head>
+    <title>Works</title>
+    <meta content="text/htmlcharset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel = "stylesheet" type = "text/css" href= "styles.css">
+</head>
+    
+<body>
+    
+    <!-- nav bar  -->
+    <!--  contact me lined in, twitter, github try to put at the bottom of all the pages  -->
+
+    <header>
+        <div id="logo_placement">
+            <img id="logo" src="BC_logo_white.png">
+        </div>
+
+            <a id = "home" href="index.html">Home</a> <!-- home-->
+            <a id = "about" href="about.html">About me</a><!-- about me w/ orgs part in-->
+            <a id = "education" href="education.html">Education</a> <!-- education-->
+            <a id = "works" href="works.html">Works</a><!-- works-->
+
+    </header>
+
+    <div id = "work_template">
+        <div id = "project"></div>
+    </div>
+
+    <footer id = "container2">
+        <div id = "contact">CONTACT ME</div>
+    </footer>
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+    
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyDCI8R3edblRVJJikXdJX4WEruo5VwMO8U",
+                authDomain: "mp1-resume.firebaseapp.com",
+                databaseURL: "https://mp1-resume.firebaseio.com",
+                projectId: "mp1-resume",
+                storageBucket: "mp1-resume.appspot.com",
+                messagingSenderId: "237909837691",
+                appId: "1:237909837691:web:7d7e1cd429a0a7c5915fde"
+            };
+            // Initialize Firebase
+            var defaultPorject = firebase.initializeApp(firebaseConfig);
+            var db = firebase.firestore()
+
+    
+            db.collection("contact").get().then((snapshot) =>{
+                snapshot.forEach((doc) => {
+                    document.getElementById('container2').innerHTML += `<img class="sm_logo" src ="${doc.data().logo}">`;
+                    document.getElementById('container2').innerHTML += `<a href="${doc.data().url}">${doc.data().username}</a>`;
+                });
+            });
+
+            db.collection("works").get().then((snapshot) =>{
+                snapshot.forEach((doc) => {
+                    document.getElementById('project').innerHTML += `<a href="${doc.data().link}">${doc.data().name}</a><br><br>`;
+                    document.getElementById('project').innerHTML += `<div id = "description">${doc.data().lab}<br><br>${doc.data().description}<br><br><br>`;
+                });
+            });
+       
+        </script>
+
+</body>
